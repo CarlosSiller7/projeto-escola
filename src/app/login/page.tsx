@@ -2,27 +2,52 @@
 
 import { Login } from '@/actions/login';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
 
 export default function Page() {
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    senha: ''
+  });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     setLoading(true);
-    try{
-    const response = Login({email, senha}) 
-    console.log(response)
-    } 
-    catch (err) {
-      console.error('Ocorreu um erro:', err);
-      setError('Ocorreu um erro na rede. Por favor, tente novamente mais tarde.');
+    setError('');
+    
+    try {
+      const response = await Login({ email: formData.email, senha: formData.senha });
+      console.log("Resposta da API:", response);
+
+      //Armazenando o token em cookies
+      if (response?.token) {
+         Cookies.set('token', response.token, { expires: 7 }); 
+
+        // Armazenando o usuário também:
+        Cookies.set('user', JSON.stringify({
+           id: response.id,
+           nome: response.nome,
+           email: response.email,
+         }), { expires: 7 });
+
+        console.log("Token salvo com sucesso!");
+      } else {
+        setError("E-mail ou senha inválidos");
+      }
+
+    } catch (err) {
+      console.error("Ocorreu um erro:", err);
+      setError("Ocorreu um erro na rede. Por favor, tente novamente mais tarde.");
     } finally {
       setLoading(false);
     }
-    setError('');
   };
 
   return (
@@ -42,9 +67,10 @@ export default function Page() {
           <div>
             <input
               type="text"
+              name='email'
               placeholder="E-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData.email}
+              onChange={handleChange}
               className="w-full px-4 py-2 rounded-lg bg-green-100 text-green-900 focus:outline-none focus:ring-2 focus:ring-green-400"
             />
           </div>
@@ -52,21 +78,12 @@ export default function Page() {
           <div>
             <input
               type="password"
+              name='senha'
               placeholder="Senha"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
+              value={formData.senha}
+              onChange={handleChange}
               className="w-full px-4 py-2 rounded-lg bg-green-100 text-green-900 focus:outline-none focus:ring-2 focus:ring-green-400"
             />
-          </div>
-
-          <div className="flex items-center justify-between text-green-100 text-sm">
-            <label className="flex items-center">
-              <input type="checkbox" className="mr-2" />
-              Lembrar-me
-            </label>
-            <a href="#" className="hover:underline">
-              Esqueceu sua senha?
-            </a>
           </div>
 
           <button
@@ -80,9 +97,8 @@ export default function Page() {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-green-100 text-sm">
-          Novo por aqui?{" "}
-          <a href="/cadastro" className="font-semibold hover:underline">
+        <p className="mt-6 text-end text-green-100 text-sm">
+          <a href="#" className="font-semibold hover:underline">
             Cadastre-se
           </a>
         </p>
