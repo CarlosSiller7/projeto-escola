@@ -3,8 +3,10 @@
 import { Login } from '@/actions/login';
 import { useState } from 'react';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
     senha: ''
@@ -24,7 +26,7 @@ export default function Page() {
     
     try {
       const response = await Login({ email: formData.email, senha: formData.senha });
-      console.log("Resposta da API:", response);
+     
 
       //Armazenando o token em cookies
       if (response?.token) {
@@ -37,12 +39,14 @@ export default function Page() {
            email: response.email,
          }), { expires: 7 });
 
-        console.log("Token salvo com sucesso!");
+       
+        router.push('/');
       } else {
         setError("E-mail ou senha inválidos");
       }
 
-    } catch (err) {
+    } 
+    catch (err) {
       console.error("Ocorreu um erro:", err);
       setError("Ocorreu um erro na rede. Por favor, tente novamente mais tarde.");
     } finally {
