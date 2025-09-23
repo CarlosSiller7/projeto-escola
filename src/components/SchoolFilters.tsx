@@ -19,9 +19,6 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { SelectChangeEvent } from '@mui/material';
 import { Grid } from '@mui/material';
 
-
-
-// Lista de cidades de exemplo
 const cities = ['Teresina', 'Parnaíba', 'Picos', 'Floriano', 'Outra Cidade'];
 
 export default function SchoolFilters() {
@@ -53,7 +50,6 @@ export default function SchoolFilters() {
           Filtros de Busca
         </Typography>
         <Grid container spacing={2} alignItems="center" justifyContent="space-between">
-          {/* Filtro de Cidade */}
           <Grid item xs={12} md={8} sx={{ display: "flex", gap: 2 }}>
             <FormControl sx={{ minWidth: 200 }}>
               <InputLabel id="city-select-label">Cidade</InputLabel>
@@ -84,7 +80,6 @@ export default function SchoolFilters() {
             />
           </Grid>
           
-          {/* Botões de Ação */}
           <Grid item>
             <Box sx={{ display: "flex", gap: 1 }}>
               <Button

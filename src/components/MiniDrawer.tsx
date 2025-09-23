@@ -17,11 +17,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import UserMenu from './UserMenu';
 import HomeIcon from '@mui/icons-material/Home';
 import SchoolIcon from '@mui/icons-material/School';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import InfoIcon from '@mui/icons-material/Info';
 import Link from "next/link";
 
@@ -53,7 +52,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -108,9 +106,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     ],
   }),
 );
+
 const menuItems = [
   { text: 'Início', icon: <HomeIcon />, href: '/' },
   { text: 'Escolas', icon: <SchoolIcon />, href: '/escolas' },
+  { text: 'Cadastro', icon: <LibraryBooksIcon />, href: '/cadastro' },
   { text: 'Sobre', icon: <InfoIcon />, href: '/sobre' },
 ];
 
@@ -131,38 +131,38 @@ export default function () {
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
-          <Box 
-          sx={{ 
-            flexGrow: 1, 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center' 
-          }}
-        >
-            <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen}
-                edge="start"
-                sx={[
-                {
-                    marginRight: 5,
-                },
-                open && { display: 'none' },
-                ]}
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
           >
-                <MenuIcon />
-           </IconButton>
-            <Typography variant="h6" noWrap component="div">
-            Projeto Escolas
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={[
+                { marginRight: 5 },
+                open && { display: 'none' },
+              ]}
+            >
+              <MenuIcon />
+            </IconButton>
+
+            <Typography variant="h6" noWrap component="div" sx={{ justifyContent: "center" }}>
+              Projeto Escolas
             </Typography>
+
             <Box sx={{ ml: 2 }}>
               <UserMenu user={null} />
             </Box>
-
           </Box>
         </Toolbar>
       </AppBar>
+
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
@@ -170,44 +170,35 @@ export default function () {
           </IconButton>
         </DrawerHeader>
         <Divider />
+
         <List>
           {menuItems.map((item) => (
-  <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
-    <ListItemButton
-      component={Link} 
-      href={item.href} 
-      sx={[
-        {
-          minHeight: 48,
-          px: 2.5,
-        },
-        open
-          ? { justifyContent: 'initial' }
-          : { justifyContent: 'center' },
-      ]}
-    >
-      <ListItemIcon
-        sx={[
-          {
-            minWidth: 0,
-            justifyContent: 'center',
-          },
-          open ? { mr: 3 } : { mr: 'auto' },
-        ]}
-      >
-        {item.icon}
-      </ListItemIcon>
-      <ListItemText
-        primary={item.text}
-        sx={[open ? { opacity: 1 } : { opacity: 0 }]}
-      />
-    </ListItemButton>
-  </ListItem>
-))}
+            <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                component={Link}
+                href={item.href}
+                sx={[
+                  { minHeight: 48, px: 2.5 },
+                  open ? { justifyContent: 'initial' } : { justifyContent: 'center' },
+                ]}
+              >
+                <ListItemIcon
+                  sx={[
+                    { minWidth: 0, justifyContent: 'center' },
+                    open ? { mr: 3 } : { mr: 'auto' },
+                  ]}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.text}
+                  sx={[open ? { opacity: 1 } : { opacity: 0 }]}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
-        
       </Drawer>
-      
     </Box>
   );
 }

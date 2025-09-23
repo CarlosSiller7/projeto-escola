@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import MiniDrawer from '@/components/MiniDrawer';
+import { Box } from '@mui/material';
 
 interface User {
   id: string;
@@ -25,7 +26,7 @@ export default function Home() {
       } catch (e) {
         console.error("Erro ao fazer o parse do cookie de usuário:", e);
         Cookies.remove('user');
-        router.push('/login'); 
+        router.push('/login');
       }
     } else {
       router.push('/login');
@@ -38,19 +39,30 @@ export default function Home() {
   }
 
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <MiniDrawer />
+    <Box sx={{ display: "flex", minHeight: "100vh" }}>
+      <MiniDrawer />
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 4,
+          mt: 7,
+          transition: "margin 0.3s ease",
+          width: "100%",
+        }}
+      >
         {user ? (
-          <><h1 className="text-4xl font-bold text-center sm:text-left">
-            Bem-vindo, {user.nome}!
-          </h1></>
+          <>
+            <h1 className="text-4xl font-bold text-center sm:text-left">
+              Bem-vindo, {user.nome}!
+            </h1>
+          </>
         ) : (
           <>
             
           </>
         )}
-      </main>
-    </div>
+      </Box>
+    </Box>
   );
 }
