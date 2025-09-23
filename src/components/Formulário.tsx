@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { cadastro } from '@/actions/cadastro';
 import { useRouter } from 'next/navigation';
 import { Cidade } from '@/types/Escolas';
+import CustomSnackbar from './CustomSnackbar';
 
 type FormProps = {
   initialCities: Cidade[];
@@ -30,6 +31,15 @@ export default function Formulario({ initialCities, initialError }: FormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(initialError);
   const [validationErrors, setValidationErrors] = useState({});
+  const [alert, setAlert] = useState({
+    open: false,
+    message: '',
+    severity: 'success', 
+  });
+
+  const handleCloseAlert = () => {
+    setAlert({ ...alert, open: false });
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -64,14 +74,29 @@ export default function Formulario({ initialCities, initialError }: FormProps) {
 
       await cadastro(payload as any);
 
-      alert('Escola criada com sucesso!');
-      router.push('/');
+      setAlert({
+        open: true,
+        message: 'Escola criada com sucesso!',
+        severity: 'success', 
+      });
+
+      setForm({
+        nome: '',
+        cidade_id: '',
+        localizacao: '',
+        turnos: [],
+      });
     } catch (err: any) {
       if (err.validation) {
         setValidationErrors(err.validation);
       } else {
         setError('Erro inesperado. Tente novamente.');
       }
+      setAlert({
+        open: true,
+        message: 'Erro ao cadastrar a escola.',
+        severity: 'error', 
+      });
     } finally {
       setLoading(false);
     }
@@ -180,6 +205,12 @@ export default function Formulario({ initialCities, initialError }: FormProps) {
             {loading ? 'Salvando...' : 'CADASTRAR ESCOLA'}
           </button>
         </form>
+        <CustomSnackbar
+        open={alert.open}
+        message={alert.message}
+        severity={alert.severity as 'success' | 'info' | 'warning' | 'error'}
+        onClose={handleCloseAlert}
+      />
       </div>
     </div>
   );

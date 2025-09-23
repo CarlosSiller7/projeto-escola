@@ -97,7 +97,7 @@ export default function SchoolFilters() {
               </Button>
               <Button
                 variant="outlined"
-                color='secondary'
+                color='error'
                 onClick={handleClear}
                 startIcon={<ClearIcon />}
               >

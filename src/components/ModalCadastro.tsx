@@ -23,13 +23,13 @@ interface ModalProps {
 }
 
 const style = {
-  position: 'absolute' as 'absolute',
+  position: 'fixed',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  maxWidth: '90vw', 
+  maxWidth: 'full', 
   minWidth: '300px', 
-  bgcolor: 'background.paper',
+  bgcolor: 'transparent',
   border: 'none',
   borderRadius: '8px',
   boxShadow: 24,

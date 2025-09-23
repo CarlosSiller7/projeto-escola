@@ -20,7 +20,7 @@ const ButtonCreate = () => {
         type="button"
         disabled={loading}
         onClick={handleOpenModal}
-        className={`ml-4 w-48 py-2 rounded text-white font-semibold cursor-pointer ${
+        className={`ml-8 w-48 py-2 rounded text-white font-semibold cursor-pointer ${
           loading ? 'bg-blue-700 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
         }`}
       >

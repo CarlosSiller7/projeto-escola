@@ -108,11 +108,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     ],
   }),
 );
-
 const menuItems = [
   { text: 'Início', icon: <HomeIcon />, href: '/' },
   { text: 'Escolas', icon: <SchoolIcon />, href: '/escolas' },
-  { text: 'Cadastro', icon: <PersonAddIcon />, href: '/cadastro'},
   { text: 'Sobre', icon: <InfoIcon />, href: '/sobre' },
 ];
 
