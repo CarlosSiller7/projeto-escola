@@ -1,3 +1,2 @@
-const API_URL = 'https://apiteste.mobieduca.me';
+export const API_URL = 'https://apiteste.mobieduca.me';
 
-export {API_URL}

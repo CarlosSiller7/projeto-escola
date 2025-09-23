@@ -1,3 +1,4 @@
+'use server'
 import { API_URL } from "@/env";
 
 type login = {

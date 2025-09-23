@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import MiniDrawer from '@/components/MiniDrawer';
 
@@ -33,7 +32,6 @@ export default function Home() {
     }
     setIsHydrated(true);
   }, []);
-
 
   if (!isHydrated) {
     return null;

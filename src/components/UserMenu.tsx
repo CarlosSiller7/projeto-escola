@@ -1,3 +1,4 @@
+'use client'
 import * as React from 'react';
 import { useState } from 'react';
 import {
@@ -5,7 +6,6 @@ import {
   IconButton,
   Avatar,
   List,
-  ListItemText,
   ListItemButton,
 } from '@mui/material';
 import ButtonLogout from './button/ButtonLogout';
@@ -18,12 +18,10 @@ export default function UserMenu({ user }: { user: User | null }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  // Função para abrir o menu e ancorá-lo no elemento clicado
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  // Função para fechar o menu
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -89,12 +87,12 @@ export default function UserMenu({ user }: { user: User | null }) {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <List>
-          <ListItemButton onClick={handleClose}>
+          {/* <ListItemButton onClick={handleClose}>
             <ListItemText primary="Perfil" />
           </ListItemButton>
           <ListItemButton onClick={handleClose}>
             <ListItemText primary="Configurações" />
-          </ListItemButton>
+          </ListItemButton> */}
           <ListItemButton onClick={handleClose}>
             <ButtonLogout />
           </ListItemButton>

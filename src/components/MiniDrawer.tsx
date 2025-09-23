@@ -1,3 +1,4 @@
+'use client'
 import * as React from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -17,8 +18,12 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import UserMenu from './UserMenu';
+import HomeIcon from '@mui/icons-material/Home';
+import SchoolIcon from '@mui/icons-material/School';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import InfoIcon from '@mui/icons-material/Info';
+import Link from "next/link";
 
 const drawerWidth = 240;
 
@@ -104,7 +109,14 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer() {
+const menuItems = [
+  { text: 'Início', icon: <HomeIcon />, href: '/' },
+  { text: 'Escolas', icon: <SchoolIcon />, href: '/escolas' },
+  { text: 'Cadastro', icon: <PersonAddIcon />, href: '/cadastro'},
+  { text: 'Sobre', icon: <InfoIcon />, href: '/sobre' },
+];
+
+export default function () {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
@@ -146,9 +158,10 @@ export default function MiniDrawer() {
             <Typography variant="h6" noWrap component="div">
             Projeto Escolas
             </Typography>
-            <IconButton sx={{ ml: 2 }}>
-                <UserMenu user={null} />
-            </IconButton>
+            <Box sx={{ ml: 2 }}>
+              <UserMenu user={null} />
+            </Box>
+
           </Box>
         </Toolbar>
       </AppBar>
@@ -160,55 +173,39 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Início','Escolas', 'Cadastro', 'Sobre'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={[
-                  {
-                    minHeight: 48,
-                    px: 2.5,
-                  },
-                  open
-                    ? {
-                        justifyContent: 'initial',
-                      }
-                    : {
-                        justifyContent: 'center',
-                      },
-                ]}
-              >
-                <ListItemIcon
-                  sx={[
-                    {
-                      minWidth: 0,
-                      justifyContent: 'center',
-                    },
-                    open
-                      ? {
-                          mr: 3,
-                        }
-                      : {
-                          mr: 'auto',
-                        },
-                  ]}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText
-                  primary={text}
-                  sx={[
-                    open
-                      ? {
-                          opacity: 1,
-                        }
-                      : {
-                          opacity: 0,
-                        },
-                  ]}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          {menuItems.map((item) => (
+  <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
+    <ListItemButton
+      component={Link} 
+      href={item.href} 
+      sx={[
+        {
+          minHeight: 48,
+          px: 2.5,
+        },
+        open
+          ? { justifyContent: 'initial' }
+          : { justifyContent: 'center' },
+      ]}
+    >
+      <ListItemIcon
+        sx={[
+          {
+            minWidth: 0,
+            justifyContent: 'center',
+          },
+          open ? { mr: 3 } : { mr: 'auto' },
+        ]}
+      >
+        {item.icon}
+      </ListItemIcon>
+      <ListItemText
+        primary={item.text}
+        sx={[open ? { opacity: 1 } : { opacity: 0 }]}
+      />
+    </ListItemButton>
+  </ListItem>
+))}
         </List>
         
       </Drawer>
