@@ -3,6 +3,13 @@
 import { API_URL } from "@/env";
 import { cookies } from "next/headers";
 
+interface EscolasPayload {
+    nome: string;
+    cidade_id: number;
+    localizacao: string;
+    turnos: string[];
+}
+
 export async function listarEscolas(filtros: { nome?: string; cidade_id?: number; localizacao?: number }) {
   try {
     const query = new URLSearchParams();
@@ -50,4 +57,54 @@ export async function listarEscolas(filtros: { nome?: string; cidade_id?: number
     console.error("Ocorreu um erro ao buscar escolas:", error);
     throw error;
   }
+}
+
+export async function cadastrarEscola(payload: EscolasPayload) {
+    try {
+        const token = (await cookies()).get('token')?.value;
+        const res = await fetch(`${API_URL}/api/escolas`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+            },
+            body: JSON.stringify(payload),
+        });
+        
+        const data = await res.json();
+        
+        if (!res.ok) {
+            throw data;
+        }
+        
+        return data;
+    } catch (error) {
+        console.error("Ocorreu um erro ao criar a escola:", error);
+        throw error;
+    }
+}
+
+export async function editarEscola(escolaId: number, payload: EscolasPayload) {
+    try {
+        const token = (await cookies()).get('token')?.value;
+        const res = await fetch(`${API_URL}/api/escolas/${escolaId}`, {
+            method: 'PATCH', 
+            headers: {
+                'Content-Type': 'application/json',
+                ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+            },
+            body: JSON.stringify(payload), 
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            throw data;
+        }
+
+        return data;
+    } catch (error) {
+        console.error("Ocorreu um erro ao atualizar a escola:", error);
+        throw error;
+    }
 }

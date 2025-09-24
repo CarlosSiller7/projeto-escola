@@ -2,8 +2,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import Formulario from './Formulário';
-import { Typography } from '@mui/material';
+import Formulario from './Formulario';
 import { Cidade } from '@/types/Escolas';
 import { cidades } from '@/actions/cidades';
 
@@ -17,9 +16,20 @@ let initialCities: Cidade[] = [];
     error = 'Não foi possível carregar as cidades. Tente novamente.';
   }
 
+  interface EscolaCompleta {
+    id: number;
+    nome: string;
+    cidade_id: number;
+    localizacao: string;
+    turnos: string[];
+}
+
 interface ModalProps {
   open: boolean;
   onClose: () => void;
+  initialCities: Cidade[];
+    initialError: string | null;
+    escolaParaEdicao?: EscolaCompleta;
 }
 
 const style = {

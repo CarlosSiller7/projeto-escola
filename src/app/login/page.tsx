@@ -27,12 +27,9 @@ export default function Page() {
     try {
       const response = await Login({ email: formData.email, senha: formData.senha });
      
-
-      //Armazenando o token em cookies
       if (response?.token) {
          Cookies.set('token', response.token, { expires: 7 }); 
 
-        // Armazenando o usuário também:
         Cookies.set('user', JSON.stringify({
            id: response.id,
            nome: response.nome,

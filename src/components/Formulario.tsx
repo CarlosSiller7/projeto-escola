@@ -1,14 +1,23 @@
 'use client';
 
-import React, { useState } from 'react';
-import { cadastro } from '@/actions/cadastro';
+import React, { useState, useEffect} from 'react';
+import { cadastrarEscola, editarEscola } from '@/actions/escolas';
 import { useRouter } from 'next/navigation';
 import { Cidade } from '@/types/Escolas';
 import CustomSnackbar from './CustomSnackbar';
 
+interface EscolaCompleta {
+    id: number;
+    nome: string;
+    cidade_id: number;
+    localizacao: string;
+    turnos: string[];
+}
+
 type FormProps = {
   initialCities: Cidade[];
   initialError: string | null;
+  escolaParaEdicao?: EscolaCompleta;
 };
 
 type FormState = {
@@ -19,7 +28,7 @@ type FormState = {
 };
 
 
-export default function Formulario({ initialCities, initialError }: FormProps) {
+export default function Formulario({ initialCities, initialError, escolaParaEdicao }: FormProps) {
   const router = useRouter();
   const [form, setForm] = useState<FormState>({
     nome: '',
@@ -36,6 +45,18 @@ export default function Formulario({ initialCities, initialError }: FormProps) {
     message: '',
     severity: 'success', 
   });
+
+  React.useEffect(() => {
+  if (escolaParaEdicao) {
+    setForm({
+      nome: escolaParaEdicao.nome || "",
+      cidade_id: escolaParaEdicao.cidade_id ? String(escolaParaEdicao.cidade_id) : "",
+      localizacao: escolaParaEdicao.localizacao || "",
+      turnos: escolaParaEdicao.turnos || [],
+    });
+  }
+}, [escolaParaEdicao]);
+
 
   const handleCloseAlert = () => {
     setAlert({ ...alert, open: false });
@@ -58,49 +79,57 @@ export default function Formulario({ initialCities, initialError }: FormProps) {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setValidationErrors({});
+   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setValidationErrors({});
 
-    try {
-      const payload = {
-        nome: form.nome,
-        cidade_id: Number(form.cidade_id),
-        localizacao: form.localizacao,
-        turnos: form.turnos,
-      };
+    try {
+      const payload = {
+        nome: form.nome,
+        cidade_id: Number(form.cidade_id),
+        localizacao: form.localizacao,
+        turnos: form.turnos,
+      };
 
-      await cadastro(payload as any);
+      if (escolaParaEdicao) {
+                await editarEscola(escolaParaEdicao.id, payload as any);
+                setAlert({
+                    open: true,
+                    message: 'Escola atualizada com sucesso!',
+                    severity: 'success',
+                });
+            } else {
+                await cadastrarEscola(payload as any);
+                setAlert({
+                    open: true,
+                    message: 'Escola criada com sucesso!',
+                    severity: 'success',
+                });
+            }
 
-      setAlert({
-        open: true,
-        message: 'Escola criada com sucesso!',
-        severity: 'success', 
-      });
-
-      setForm({
-        nome: '',
-        cidade_id: '',
-        localizacao: '',
-        turnos: [],
-      });
-    } catch (err: any) {
-      if (err.validation) {
-        setValidationErrors(err.validation);
+      setForm({
+        nome: '',
+        cidade_id: '',
+        localizacao: '',
+        turnos: [],
+      });
+    } catch (err: any) {
+      if (err && typeof err === 'object' && Object.keys(err).length > 0) {
+        setValidationErrors(err);
       } else {
         setError('Erro inesperado. Tente novamente.');
       }
-      setAlert({
-        open: true,
-        message: 'Erro ao cadastrar a escola.',
-        severity: 'error', 
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+      setAlert({
+        open: true,
+        message: 'Erro ao cadastrar a escola.',
+        severity: 'error', 
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const turnoOptions = [
     { code: 'M', label: 'Manhã' },
@@ -113,7 +142,7 @@ export default function Formulario({ initialCities, initialError }: FormProps) {
     <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br">
       <div className="bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-white mb-4">
-          Cadastro de Escola
+          {escolaParaEdicao ? 'Edição de Escola' : 'Cadastro de Escola'}
         </h2>
 
         {error && (
@@ -155,7 +184,7 @@ export default function Formulario({ initialCities, initialError }: FormProps) {
               <>
                 <option value="">Selecione a cidade</option>
                 {initialCities.map((c) => (
-                  <option key={c.id} value={c.id}>
+                  <option key={c.id} value={String(c.id)}>
                     {c.descricao}
                   </option>
                 ))}
@@ -202,7 +231,7 @@ export default function Formulario({ initialCities, initialError }: FormProps) {
                 : 'bg-blue-500 hover:bg-blue-600'
             }`}
           >
-            {loading ? 'Salvando...' : 'CADASTRAR ESCOLA'}
+            {loading ? 'Salvando...' : (escolaParaEdicao ? 'SALVAR ALTERAÇÕES' : 'CADASTRAR ESCOLA')}
           </button>
         </form>
         <CustomSnackbar

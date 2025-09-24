@@ -1,4 +1,4 @@
-import Formulario from '@/components/Formulário';
+import Formulario from '@/components/Formulario';
 import MiniDrawer from '@/components/MiniDrawer';
 import { cidades } from '@/actions/cidades';
 import { Cidade } from '@/types/Escolas';

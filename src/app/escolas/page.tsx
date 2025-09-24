@@ -21,7 +21,7 @@ export default function Page() {
       >
         <SchoolFilters />
         <ButtonCreate />
-        <Table />
+        <Table initialCities={[]} initialError={null} />
       </Box>
     </Box>
   );

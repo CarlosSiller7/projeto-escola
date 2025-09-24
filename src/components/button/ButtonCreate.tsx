@@ -27,7 +27,7 @@ const ButtonCreate = () => {
         {loading ? 'Salvando...' : 'NOVA ESCOLA'}
       </button>
 
-      {isModalOpen && <ModalCadastro open={isModalOpen} onClose={handleCloseModal} />}
+      {isModalOpen && <ModalCadastro open={isModalOpen} onClose={handleCloseModal} initialCities={[]} initialError={null} />}
     </div>
   );
 };
