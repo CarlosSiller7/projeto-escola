@@ -2,7 +2,7 @@
 
 Este é o repositório do projeto **Projeto-Escola**, um sistema para cadastro de informações de escolas.
 
-## 🚀 Como Rodar o Projeto
+## Como Rodar o Projeto
 
 Siga os passos abaixo para configurar e executar o projeto localmente:
 
@@ -23,7 +23,7 @@ Siga os passos abaixo para configurar e executar o projeto localmente:
 
     O sistema será iniciado e redirecionará automaticamente para a página de login.
 
-## 🔑 Acesso ao Sistema
+## Acesso ao Sistema
 
 Para acessar o sistema, use as seguintes credenciais:
 
