@@ -1,4 +1,3 @@
-// components/SchoolFilters.tsx
 'use client'
 
 import * as React from 'react';
@@ -70,37 +69,37 @@ export default function SchoolFilters({ onSearch }: { onSearch: (schoolName: str
           Filtros de Busca
         </Typography>
         <Grid container spacing={2} alignItems="center" justifyContent="space-between">
-          <Grid item xs={12} md={8} sx={{ display: "flex", gap: 2 }}>
-            <FormControl sx={{ minWidth: 200 }}>
-              <InputLabel id="city-select-label">Cidade</InputLabel>
-              <Select
-                labelId="city-select-label"
-                id="city-select"
-                value={city}
-                label="Cidade"
-                onChange={handleCityChange}
-              >
-                <MenuItem value="">
-                  <em>Todas</em>
-                </MenuItem>
-                {cities.map((c) => (
-                  <MenuItem key={c.id} value={String(c.id)}>
-                    {c.descricao}
+          <Grid>
+            <Box sx={{ display: "flex", gap: 2 }}>
+              <FormControl sx={{ minWidth: 200 }}>
+                <InputLabel id="city-select-label">Cidade</InputLabel>
+                <Select
+                  labelId="city-select-label"
+                  id="city-select"
+                  value={city}
+                  label="Cidade"
+                  onChange={handleCityChange}
+                >
+                  <MenuItem value="">
+                    <em>Todas</em>
                   </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            <TextField
-              sx={{ minWidth: 250 }}
-              label="Nome da Escola"
-              variant="outlined"
-              value={schoolName}
-              onChange={handleSchoolNameChange}
-            />
+                  {cities.map((c) => (
+                    <MenuItem key={c.id} value={String(c.id)}>
+                      {c.descricao}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <TextField
+                sx={{ minWidth: 250 }}
+                label="Nome da Escola"
+                variant="outlined"
+                value={schoolName}
+                onChange={handleSchoolNameChange}
+              />
+            </Box>
           </Grid>
-          
-          <Grid item>
+          <Grid>
             <Box sx={{ display: "flex", gap: 1 }}>
               <Button
                 variant="contained"
