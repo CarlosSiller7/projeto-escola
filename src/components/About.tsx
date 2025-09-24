@@ -59,10 +59,11 @@ export default function AccordionUsage() {
         <Typography
         sx={{
         textAlign: 'justify',
-        textIndent: '2em',
+        
         }}
         >
         Durante o processo de desenvolvimento, enfrentei alguns desafios relacionados à integração do front-end com a API. A principal dificuldade esteve na implementação da tela de login, que exigia autenticação e comunicação direta com o back-end. Inicialmente, não dispunha das credenciais e do acesso adequado à API, o que impossibilitou o envio correto das requisições e, consequentemente, a validação dos fluxos de autenticação.
+        <br />
         Com o avanço do desenvolvimento e após obter acesso completo ao back-end, consegui estruturar a integração de forma consistente, garantindo que o front-end fosse capaz de autenticar usuários, armazenar os tokens de forma segura e manter a comunicação com as demais rotas da aplicação. Apesar das dificuldades iniciais, essa etapa foi importante para consolidar meu aprendizado sobre autenticação, tratamento de erros em requisições assíncronas e boas práticas de integração entre front-end e back-end.
         </Typography>
         </AccordionDetails>

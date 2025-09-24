@@ -1,3 +1,4 @@
+// components/SchoolFilters.tsx
 'use client'
 
 import * as React from 'react';
@@ -21,27 +22,26 @@ import { Grid } from '@mui/material';
 import { cidades } from '@/actions/cidades';
 import { Cidade } from '@/types/Escolas';
 
-export default function SchoolFilters() {
+export default function SchoolFilters({ onSearch }: { onSearch: (schoolName: string, cityId: string) => void }) {
   const [city, setCity] = useState('');
   const [schoolName, setSchoolName] = useState('');
   const [cities, setCities] = useState<Cidade[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingCities, setLoadingCities] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        setLoading(true);
+        setLoadingCities(true);
         const fetchedCities = await cidades();
         setCities(fetchedCities);
       } catch (err: any) {
         console.error("Erro ao buscar cidades:", err);
         setError("Não foi possível carregar as cidades.");
       } finally {
-        setLoading(false);
+        setLoadingCities(false);
       }
     };
-
     fetchCities();
   }, []);
 
@@ -54,13 +54,13 @@ export default function SchoolFilters() {
   };
 
   const handleSearch = () => {
-    console.log('Filtros aplicados:', { city, schoolName });
+    onSearch(schoolName, city);
   };
 
   const handleClear = () => {
     setCity('');
     setSchoolName('');
-    console.log('Filtros limpos!');
+    onSearch('', '');
   };
 
   return (
