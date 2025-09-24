@@ -28,7 +28,7 @@ export default async function Page() {
           width: "100%",
         }}
       >
-      <MiniDrawer />
+      
       <Formulario initialCities={initialCities} initialError={error} />
       </Box>
     </Box>
