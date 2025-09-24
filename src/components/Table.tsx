@@ -4,7 +4,6 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Card, CardContent, IconButton, Tooltip } from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import { listarEscolas } from "@/actions/escolas";
 import ModalEditar from "./ModalEditar";
@@ -88,17 +87,8 @@ export default function TabelaEscolas({ initialCities, initialError }: { initial
             renderCell: (params) => {
                 const escola = params.row;
 
-                const handleVisualizar = () => {
-                    alert(`Visualizar detalhes da escola: ${escola.escola_nome}`);
-                };
-
                 return (
                     <Box>
-                        <Tooltip title="Visualizar">
-                            <IconButton onClick={handleVisualizar} color="primary">
-                                <VisibilityIcon />
-                            </IconButton>
-                        </Tooltip>
                         <Tooltip title="Editar">
                             <IconButton onClick={() => handleEditar(escola)} color="secondary">
                                 <EditIcon />
@@ -120,7 +110,7 @@ export default function TabelaEscolas({ initialCities, initialError }: { initial
                         loading={loading}
                         initialState={{
                             pagination: {
-                                paginationModel: { pageSize: 5 },
+                                paginationModel: { pageSize: 8 },
                             },
                         }}
                         pageSizeOptions={[5]}
