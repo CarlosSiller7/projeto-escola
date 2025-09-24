@@ -67,6 +67,8 @@ export default function AccordionUsage() {
         Com o avanço do desenvolvimento e após obter acesso completo ao back-end, consegui estruturar a integração de forma consistente, garantindo que o front-end fosse capaz de autenticar usuários, armazenar os tokens de forma segura e manter a comunicação com as demais rotas da aplicação. Apesar das dificuldades iniciais, essa etapa foi importante para consolidar meu aprendizado sobre autenticação, tratamento de erros em requisições assíncronas e boas práticas de integração entre front-end e back-end.
         <br />
         O componente Grid do Material-UI, utilizado para o layout de filtros na interface de busca de escolas, ao que parece está em processo de depreciação. Embora o código atualmente em produção funcione conforme o esperado, a utilização de um componente obsoleto gera avisos (warnings) no console do desenvolvedor. Ignorar esses avisos pode comprometer a manutenção futura e a compatibilidade do sistema com versões mais recentes da biblioteca, além de indicar um débito técnico.
+        <br />
+        Na verdade o Grid não estava mais aceitando parametro item, o que é estranho, pois peguei o código exato da documentação do Material UI, mas consegui resolver.
         </Typography>
         </AccordionDetails>
       </Accordion>
