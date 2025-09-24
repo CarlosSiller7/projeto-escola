@@ -2,13 +2,7 @@
 
 import { API_URL } from "@/env";
 import { cookies } from "next/headers";
-
-interface EscolasPayload {
-    nome: string;
-    cidade_id: number;
-    localizacao: string;
-    turnos: string[];
-}
+import { EscolasPayload } from "@/types/Interfaces";
 
 export async function listarEscolas(filtros: { nome?: string; cidade_id?: number; localizacao?: number }) {
   try {

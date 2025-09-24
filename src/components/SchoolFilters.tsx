@@ -19,7 +19,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { SelectChangeEvent } from '@mui/material';
 import { Grid } from '@mui/material';
 import { cidades } from '@/actions/cidades';
-import { Cidade } from '@/types/Escolas';
+import { Cidade } from '@/types/Interfaces';
 
 export default function SchoolFilters({ onSearch }: { onSearch: (schoolName: string, cityId: string) => void }) {
   const [city, setCity] = useState('');

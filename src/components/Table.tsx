@@ -9,14 +9,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import ModalEditar from "./ModalEditar";
 import { API_URL } from "@/env";
 import Cookies from "js-cookie";
-
-interface EscolaCompleta {
-    id: number;
-    nome: string;
-    cidade_id: number;
-    localizacao: string;
-    turnos: string[];
-}
+import { EscolaCompleta } from "@/types/Interfaces";
 
 export default function Table({ rows, loading }: { rows: any[], loading: boolean }) {
     const [isEditModalOpen, setIsEditModalOpen] = React.useState(false);

@@ -2,14 +2,7 @@ import React from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
-
-// Define as props que o componente vai receber
-type CustomSnackbarProps = {
-  open: boolean;
-  message: string;
-  severity: 'success' | 'info' | 'warning' | 'error';
-  onClose: () => void;
-};
+import { CustomSnackbarProps } from '@/types/Interfaces';
 
 export default function CustomSnackbar({
   open,

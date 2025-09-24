@@ -1,6 +1,6 @@
 'use server';
 import { cookies } from 'next/headers';
-import { Cidade } from '@/types/Escolas';
+import { Cidade } from '@/types/Interfaces';
 import { API_URL } from '@/env';
 
 export const cidades = async (): Promise<Cidade[]> => {

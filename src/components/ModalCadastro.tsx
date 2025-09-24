@@ -3,8 +3,9 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Formulario from './Formulario';
-import { Cidade } from '@/types/Escolas';
+import { Cidade } from '@/types/Interfaces';
 import { cidades } from '@/actions/cidades';
+import { ModalProps } from '@/types/Interfaces';
 
 let initialCities: Cidade[] = [];
   let error: string | null = null;
@@ -15,22 +16,6 @@ let initialCities: Cidade[] = [];
     console.error('Erro ao buscar cidades na camada de servidor:', err);
     error = 'Não foi possível carregar as cidades. Tente novamente.';
   }
-
-  interface EscolaCompleta {
-    id: number;
-    nome: string;
-    cidade_id: number;
-    localizacao: string;
-    turnos: string[];
-}
-
-interface ModalProps {
-  open: boolean;
-  onClose: () => void;
-  initialCities: Cidade[];
-    initialError: string | null;
-    escolaParaEdicao?: EscolaCompleta;
-}
 
 const style = {
   position: 'fixed',

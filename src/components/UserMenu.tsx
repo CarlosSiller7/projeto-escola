@@ -9,10 +9,7 @@ import {
   ListItemButton,
 } from '@mui/material';
 import ButtonLogout from './button/ButtonLogout';
-
-interface User {
-  nome: string;
-}
+import { User } from '@/types/Interfaces';
 
 export default function UserMenu({ user }: { user: User | null }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -87,12 +84,6 @@ export default function UserMenu({ user }: { user: User | null }) {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <List>
-          {/* <ListItemButton onClick={handleClose}>
-            <ListItemText primary="Perfil" />
-          </ListItemButton>
-          <ListItemButton onClick={handleClose}>
-            <ListItemText primary="Configurações" />
-          </ListItemButton> */}
           <ListItemButton onClick={handleClose}>
             <ButtonLogout />
           </ListItemButton>

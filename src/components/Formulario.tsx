@@ -3,30 +3,9 @@
 import React, { useState, useEffect} from 'react';
 import { cadastrarEscola, editarEscola } from '@/actions/escolas';
 import { useRouter } from 'next/navigation';
-import { Cidade } from '@/types/Escolas';
 import CustomSnackbar from './CustomSnackbar';
-
-interface EscolaCompleta {
-    id: number;
-    nome: string;
-    cidade_id: number;
-    localizacao: string;
-    turnos: string[];
-}
-
-type FormProps = {
-  initialCities: Cidade[];
-  initialError: string | null;
-  escolaParaEdicao?: EscolaCompleta;
-};
-
-type FormState = {
-  nome: string;
-  cidade_id: string;
-  localizacao: string;
-  turnos: string[]; 
-};
-
+import { FormProps } from '@/types/Interfaces';
+import { FormState } from '@/types/Interfaces';
 
 export default function Formulario({ initialCities, initialError, escolaParaEdicao }: FormProps) {
   const router = useRouter();

@@ -4,23 +4,9 @@ import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Formulario from "./Formulario";
-import { Cidade } from "@/types/Escolas";
+import { Cidade } from "@/types/Interfaces";
 import { cidades } from "@/actions/cidades";
-
-interface EscolaCompleta {
-    id: number;
-    nome: string;
-    cidade_id: number;
-    localizacao: string;
-    turnos: string[];
-}
-
-type ModalEditarProps = {
-  open: boolean;
-  onClose: () => void;
-  escolaParaEdicao?: EscolaCompleta;
-};
-
+import { ModalEditarProps } from "@/types/Interfaces";
 
 const style = {
     position: 'fixed',

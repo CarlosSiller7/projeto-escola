@@ -1,7 +1,7 @@
 import Formulario from '@/components/Formulario';
 import MiniDrawer from '@/components/MiniDrawer';
 import { cidades } from '@/actions/cidades';
-import { Cidade } from '@/types/Escolas';
+import { Cidade } from '@/types/Interfaces';
 import { Box } from '@mui/material';
 
 export default async function Page() {
